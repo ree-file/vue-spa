@@ -6,8 +6,8 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <router-link to="/about" tag="li">
-            <a>About</a>
+          <router-link to="/register" tag="li">
+            <a>注册</a>
           </router-link>
         </ul>
       </div>
@@ -16,6 +16,6 @@
 </template>
   <script>
     export default{
-      
+
     }
   </script>
