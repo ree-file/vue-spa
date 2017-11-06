@@ -14,13 +14,17 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-import VueRouter from 'vue-router'
-import router from './routes'
-import App from "./components/App"
-import VeeValidate from 'vee-validate'
-Vue.use(VueRouter)
-Vue.component('app',App)
-Vue.use(VeeValidate)
+import VueRouter from 'vue-router';
+import router from './routes';
+import App from "./components/App";
+import zh_CN from './locale/zh_CN';
+import VeeValidate,{Validator}from 'vee-validate';
+Vue.use(VueRouter);
+Validator.localize('zh_CN',zh_CN);
+Vue.use(VeeValidate,{
+  locale:'zh_CN'
+});
+Vue.component('app',App);
 new Vue({
     el: '#app',
     router//router : router
