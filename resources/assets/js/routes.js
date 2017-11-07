@@ -22,6 +22,11 @@ let routes = [
     path:"/confirm",
     name : "confirm",
     component:require('./components/confirm/Email')
+  },
+  {
+    path:"/login",
+    name : "login",
+    component:require('./components/login/Login')
   }
 ]
 
