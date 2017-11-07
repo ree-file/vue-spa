@@ -46635,16 +46635,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     login: function login() {
       var formData = {
-        scope: "",
-        client_id: 2,
-        client_secret: "4aJQpVTtJp2d7NmEH8Hd15DBE2N4cPR4KwydiWq9",
-        grant_type: "password",
-        username: this.email,
+        email: this.email,
         password: this.password
       };
       console.log(formData);
-      axios.post('/oauth/token', formData).then(function (response) {
-        __WEBPACK_IMPORTED_MODULE_0__helpers_Jwt__["a" /* default */].setToken(response.data.access_token);
+      axios.post('/api/login', formData).then(function (response) {
+        __WEBPACK_IMPORTED_MODULE_0__helpers_Jwt__["a" /* default */].setToken(response.data.token);
+      }).catch(function (error) {
+        console.log(error.response.data);
       });
     }
   }
