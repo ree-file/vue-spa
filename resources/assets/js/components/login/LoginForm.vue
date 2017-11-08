@@ -29,7 +29,7 @@
   </form>
 </template>
 <script>
-  import Jwt_Token from "./../../helpers/Jwt"
+  
   export default{
     data(){
       return{
@@ -43,11 +43,8 @@
           email : this.email,
           password : this.password
         }
-        console.log(formData);
-        axios.post('/api/login',formData).then(response=>{
-          Jwt_Token.setToken(response.data.token);
-        }).catch(error=>{
-          console.log(error.response.data);
+        this.$store.dispatch('loginRequest',formData).then(response => {
+          this.$router.push({name:'profile'});
         })
       }
     }

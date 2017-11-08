@@ -19,6 +19,19 @@ import router from './routes';
 import App from "./components/App";
 import zh_CN from './locale/zh_CN';
 import VeeValidate,{Validator}from 'vee-validate';
+import store from './store/index';
+import JwtToken from './helpers/Jwt'
+
+axios.interceptors.request.use(function (config){
+  if (JwtToken.getToken()) {
+    config.headers['Authorization'] = 'Bearer ' + JwtToken.getToken();
+  }
+  return config;
+},function(error){
+  return Promise.reject(error);
+}
+);
+
 Vue.use(VueRouter);
 Validator.localize('zh_CN',zh_CN);
 Vue.use(VeeValidate,{
@@ -27,5 +40,6 @@ Vue.use(VeeValidate,{
 Vue.component('app',App);
 new Vue({
     el: '#app',
-    router//router : router
+    router,//router : router,
+    store
 });
