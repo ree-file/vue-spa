@@ -9,8 +9,8 @@ export default {
   mutations:{
     [types.SET_AUTH_USER](state,payload){
       state.authenticated=true,
-      state.name =payload.name,
-      state.email=payload.email
+      state.name =payload.user.name,
+      state.email=payload.user.email
     }
   },
   actions:{
@@ -20,7 +20,6 @@ export default {
           type:types.SET_AUTH_USER,
           user:response.data
         })
-
       })
     }
   }
