@@ -48249,7 +48249,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       var _this = this;
 
       this.$store.dispatch('loginoutRequest').then(function (response) {
-        _this.$router.push({ name: 'Home' });
+        _this.$router.push({ name: 'home' });
       });
     }
   }

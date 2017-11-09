@@ -35,7 +35,7 @@
       methods:{
         loginout(){
           this.$store.dispatch('loginoutRequest').then(response=>{
-            this.$router.push({name:'Home'});
+            this.$router.push({name:'home'});
           });
         }
       }
