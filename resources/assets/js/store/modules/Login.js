@@ -8,6 +8,11 @@ export default {
       }).catch(error=>{
         console.log(error.response.data);
       })
+    },
+    loginoutRequest({dispatch}){
+      return axios.post('/api/loginout').then(response=>{
+        dispatch('unsetAuthUser');
+      })
     }
 
   }

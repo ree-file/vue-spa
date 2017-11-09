@@ -39,7 +39,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->proxy = $proxy;
     }
-    
+    public function loginout()
+    {
+      return $this->proxy->loginout();
+    }
     public function login()
     {
       //$this->validateLogin(request());

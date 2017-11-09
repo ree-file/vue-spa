@@ -16,7 +16,7 @@
             <a>个人中心</a>
           </router-link>
           <li v-if="user.authenticated">
-            <a href="#">退出登录</a>
+            <a href="#" @click.prevent="loginout">退出登录</a>
           </li>
         </ul>
 
@@ -31,6 +31,13 @@
         ...mapState({
           user:state => state.AuthUser
         })
+      },
+      methods:{
+        loginout(){
+          this.$store.dispatch('loginoutRequest').then(response=>{
+            this.$router.push({name:'Home'});
+          });
+        }
       }
     }
   </script>
