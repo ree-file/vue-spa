@@ -4,6 +4,7 @@ import jwt from './helpers/Jwt'
 let routes = [
   {
     path:"/",
+    name:"home",
     component:require('./components/pages/Home'),
     meta:{}
   },
@@ -22,7 +23,7 @@ let routes = [
     path:"/register",
     name:'register',
     component:require('./components/register/Register'),
-    meta:{}
+    meta:{requireGuest:true}
   },
   {
     path:"/confirm",
@@ -34,7 +35,7 @@ let routes = [
     path:"/login",
     name : "login",
     component:require('./components/login/Login'),
-    meta:{}
+    meta:{requireGuest:true}
   },
   {
     path:'/profile',
@@ -51,16 +52,24 @@ const router = new VueRouter({
 
 router.beforeEach((to,from,next)=>{
   if (to.meta.requiresAuth) {
-    if (store.state.authenticated || jwt.getToken()) {
+    if (store.state.AuthUser.authenticated || jwt.getToken()) {
       return next()
     }
     else {
       return next({'name':'login'})
     }
   }
-  else {
-    return next()
+  if (to.meta.requireGuest) {
+    if (store.state.AuthUser.authenticated || jwt.getToken()) {
+      next({'name':'home'})
+    }
+    else{
+      next()
+    }
   }
+
+    return next()
+
 })
 
 
