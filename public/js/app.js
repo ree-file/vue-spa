@@ -15360,8 +15360,8 @@ axios.interceptors.request.use(function (config) {
 });
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
-__WEBPACK_IMPORTED_MODULE_4_vee_validate__["a" /* Validator */].localize('zh_CN', __WEBPACK_IMPORTED_MODULE_3__locale_zh_CN__["a" /* default */]);
-Vue.use(__WEBPACK_IMPORTED_MODULE_4_vee_validate__["b" /* default */], {
+__WEBPACK_IMPORTED_MODULE_4_vee_validate__["b" /* Validator */].localize('zh_CN', __WEBPACK_IMPORTED_MODULE_3__locale_zh_CN__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_4_vee_validate__["c" /* default */], {
   locale: 'zh_CN'
 });
 Vue.component('app', __WEBPACK_IMPORTED_MODULE_2__components_App___default.a);
@@ -46464,8 +46464,6 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
       return axios.post('/api/login', formData).then(function (response) {
         __WEBPACK_IMPORTED_MODULE_0__helpers_Jwt__["a" /* default */].setToken(response.data.token);
         dispatch('setAuthUser');
-      }).catch(function (error) {
-        console.log(error.response.data);
       });
     },
     loginoutRequest: function loginoutRequest(_ref2) {
@@ -47714,6 +47712,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vee_validate__ = __webpack_require__(83);
+//
 //
 //
 //
@@ -47750,10 +47750,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       email: '',
-      password: ""
+      password: "",
+      bag: new __WEBPACK_IMPORTED_MODULE_0_vee_validate__["a" /* ErrorBag */]()
     };
   },
 
+  computed: {
+    mismatchError: function mismatchError() {
+      return this.bag.has('password:auth') && !this.errors.has('password');
+    }
+  },
   methods: {
     login: function login() {
       var _this = this;
@@ -47766,6 +47772,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           };
           _this.$store.dispatch('loginRequest', formData).then(function (response) {
             _this.$router.push({ name: 'profile' });
+          }).catch(function (error) {
+
+            if (error.response.status === 421) {
+              _this.bag.add('password', '邮箱和密码不符合', 'auth');
+            }
+            console.log(error.response);
           });
         }
       });
@@ -47860,7 +47872,10 @@ var render = function() {
         "div",
         {
           staticClass: "form-group",
-          class: { "has-error": _vm.errors.has("password") }
+          class: {
+            "has-error":
+              _vm.errors.has("password") || _vm.bag.has("password:auth")
+          }
         },
         [
           _c(
@@ -47917,7 +47932,13 @@ var render = function() {
                 staticClass: "help-block"
               },
               [_vm._v(_vm._s(_vm.errors.first("password")))]
-            )
+            ),
+            _vm._v(" "),
+            _vm.mismatchError
+              ? _c("span", { staticClass: "help-block" }, [
+                  _vm._v(_vm._s(_vm.bag.first("password:auth")))
+                ])
+              : _vm._e()
           ])
         ]
       ),
@@ -48564,8 +48585,8 @@ var isDefinedGlobally = function isDefinedGlobally() {
 /* unused harmony export directive */
 /* unused harmony export mixin */
 /* unused harmony export mapFields */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Validator; });
-/* unused harmony export ErrorBag */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Validator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ErrorBag; });
 /* unused harmony export Rules */
 /* unused harmony export version */
 /**
@@ -55230,7 +55251,7 @@ var index_esm = {
 };
 
 
-/* harmony default export */ __webpack_exports__["b"] = (index_esm);
+/* harmony default export */ __webpack_exports__["c"] = (index_esm);
 
 
 /***/ }),
